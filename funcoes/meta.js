@@ -19,11 +19,20 @@ exports.handler = async function(event, context){
     const copom = await page.evaluate(() => { return  document.querySelector('.col-md-6.mt-md-0 .mb-md-2').textContent; });
     const meta = await page.evaluate(() => { return  document.querySelector('.mb-md-2 tr:nth-child(1) td').textContent; });
     const tole = await page.evaluate(() => { return  document.querySelector('.mb-md-2 tr+ tr td').textContent; });
+
+    document.getElementById("title").innerHTML = "Dados do Banco Central";
+
+    document.getElementById("ipca").innerHTML = ipca+"%";
+    document.getElementById("selic").innerHTML = "Taxa Selic: "+selic;
+    document.getElementById("copom").innerHTML = "ùltima Reunião do Copom "+copom;
+    document.getElementById("meta").innerHTML = "Meta para Inflação "+meta;
+    document.getElementById("tole").innerHTML = "Tolerância é "+tole;
+
   
-    console.log("Dados Banco Central\n");
+    /*console.log("Dados Banco Central\n");
     console.log('Meta para inflação: ', meta, '\nTolerância: ', tole);
     console.log('IPCA: ', ipca, '12 meses', '\nTaxa Selic: ', selic);
-    console.log(copom);
+    console.log(copom);*/
 
 
     await browser.close();
@@ -32,13 +41,6 @@ exports.handler = async function(event, context){
         statusCode: 200,
         body: JSON.stringify({
             status: 'Ok',
-            page:{
-                ipca,
-                selic,
-                copom,
-                meta,
-                tole
-            }
         })
     };
 }
